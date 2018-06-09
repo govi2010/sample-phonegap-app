@@ -77,6 +77,9 @@ function init() {
   // Handle Cordova Device Ready Event
   $$(document).on('deviceready', function deviceIsReady() {
     console.log('Device is ready!');
+    var sh = cordova.require("com.streethawk.core.Streethawk");
+    sh.streethawkinit();
+    sh.tagCuid("govi2010@gmail.com");
   });
   $$(document).on('click', '.panel .search-link', function searchLink() {
     // Only change route if not already on the index
