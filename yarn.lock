@@ -59,7 +59,7 @@ concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
 
-cordova-android@7.1.0:
+cordova-android@^7.1.0:
   version "7.1.0"
   resolved "https://registry.npmjs.org/cordova-android/-/cordova-android-7.1.0.tgz#1cd36ee7b9d19bad50d3e9842b731fe590924dd5"
   dependencies:
@@ -352,6 +352,34 @@ simple-plist@0.1.4:
 stream-buffers@~0.2.3:
   version "0.2.6"
   resolved "https://registry.npmjs.org/stream-buffers/-/stream-buffers-0.2.6.tgz#181c08d5bb3690045f69401b9ae6a7a0cf3313fc"
+
+streethawkanalytics@1.10.1:
+  version "1.10.1"
+  resolved "https://registry.npmjs.org/streethawkanalytics/-/streethawkanalytics-1.10.1.tgz#107045632215a9cc46274d49e6a690b61b9f58c9"
+
+streethawkbeacon@1.10.1:
+  version "1.10.1"
+  resolved "https://registry.npmjs.org/streethawkbeacon/-/streethawkbeacon-1.10.1.tgz#7474b6c8f65b14777034aea74b69c3bafda0807b"
+
+streethawkfeeds@1.10.1:
+  version "1.10.1"
+  resolved "https://registry.npmjs.org/streethawkfeeds/-/streethawkfeeds-1.10.1.tgz#9f944d054239ebd73332f7eb2d8197fa615060b9"
+
+streethawkgeofence@1.10.1:
+  version "1.10.1"
+  resolved "https://registry.npmjs.org/streethawkgeofence/-/streethawkgeofence-1.10.1.tgz#d801425faddde8a9b6821d07953999a405ed1dd8"
+
+streethawkgrowth@1.10.2:
+  version "1.10.2"
+  resolved "https://registry.npmjs.org/streethawkgrowth/-/streethawkgrowth-1.10.2.tgz#ec0f705866e58750fff7c45fca0c7a1283996ddd"
+
+streethawklocations@1.10.1:
+  version "1.10.1"
+  resolved "https://registry.npmjs.org/streethawklocations/-/streethawklocations-1.10.1.tgz#5a911967ce86f667d436e40a48fab9937c58dcaf"
+
+streethawkpush@1.10.1:
+  version "1.10.1"
+  resolved "https://registry.npmjs.org/streethawkpush/-/streethawkpush-1.10.1.tgz#a271b372b42d6fab30e7d6af05b001df053b5466"
 
 strip-bom@^3.0.0:
   version "3.0.0"

@@ -97,12 +97,7 @@
     <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
     <plugin name="cordova-plugin-media" spec="^5.0.2" />
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
-    <plugin name="com.streethawk.push" spec="~1.8.7" />
-    <plugin name="com.streethawk.growth" spec="~1.8.7" />
-    <plugin name="com.streethawk.beacon" spec="~1.8.7" />
-    <plugin name="com.streethawk.locations" spec="~1.8.7" />
-    <plugin name="com.streethawk.feed" spec="~1.8.7" />
-    <plugin name="com.streethawk.core" spec="https://github.com/StreetHawkSDK/PhonegapAnalytics.git#develop">
+    <plugin name="com.streethawk.core" spec="~1.10.0">
         <variable name="APP_KEY" value="phonegapeskd" />
         <variable name="URL_SCHEME" value="null" />
     </plugin>
