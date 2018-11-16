@@ -65,7 +65,50 @@ var myApp = new Framework7({
   animateNavBackIcon: true,
   pushState: !!Framework7.prototype.device.os,
 });
-
+function rawjsonSuccess(result)
+  {
+      var title = result.title;
+      var message  = result.message;
+      var rawjson = result.json;
+      alert("raw json callback. \ntitle: " + title + ", message: " + message + ", json: " + rawjson + ".");
+  }
+  function pushDataSuccess(result)
+  {
+      var action = result.action;
+      var msgid = result.msgid;
+      var title = result.title;
+      var message  = result.message;
+      var data = result.data;
+      alert("custom dialog callback. \naction: " + action + ", msgid: " + msgid + ", title: " + title + ", message: " + message + ", data: " + data + ".");
+      window.sh.sendPushResult(msgid, 1); //let continue as accept
+  }
+  function pushResultSuccess(result)
+  {
+      var pushresult = result.result;
+      var action = result.action;
+      var msgid = result.msgid;
+      var title = result.title;
+      var message  = result.message;
+      var data = result.data;
+      alert("push result callback. \nresult: " + pushresult + ", action: " + action + ", msgid: " + msgid + ", title: " + title + ", message: " + message + ", data: " + data + ".");
+  }
+  function feedItemSuccess(result)
+    {
+        for (i = 0; i < result.length; i++)
+        {
+            var feed = result[i];
+            alert("Fetch feed and send ack/result: " + JSON.stringify(feed));
+            //feed ack
+            sh.reportFeedAck(feed.feed_id);
+            //feed result
+            sh.notifyFeedResult(feed.feed_id, "", "accepted", false, false);
+        }
+    }
+    function notifyNewFeedSuccess()
+    {
+        alert("New feed found.");
+    }
+    function failCallback(result) {    alert("Fail: " + result);}
 function init() {
   // Add view
   mainView = myApp.addView('.view-main', {
@@ -76,10 +119,129 @@ function init() {
 
   // Handle Cordova Device Ready Event
   $$(document).on('deviceready', function deviceIsReady() {
-    console.log('Device is ready!');
-    var sh = cordova.require("com.streethawk.core.Streethawk");
-    sh.streethawkinit();
-    sh.tagCuid("govi2010@gmail.com");
+        console.log('Device is ready!');
+        var sh = cordova.require("com.streethawk.core.Streethawk");
+        window['sh'] = sh;
+        sh.streethawkinit();
+        sh.shSetEnableLogs(true);
+        sh.setAppKey("phonegapeskd");
+        //default location and notification
+        sh.shSetDefaultLocationService(false); //not promote location permission until enable
+        sh.shGetLocationEnabled(function(result){alert("location enabled: " + result)}, failCallback);
+        sh.shSetDefaultNotificationService(false); //not promote notification permission until enable
+        sh.shGetNotificationEnabled(function(result){alert("notification enabled: " + result)}, failCallback);
+        
+        //init
+        
+		    //sh.shSetiTunesId("507040546");
+		    //sh.shSetGcmSenderId("666472741872");
+        sh.shGetAppKey(function(result){alert("app key: " + result)}, failCallback);
+        sh.shiTunesId(function(result){alert("itunes id: " + result)}, failCallback);
+        // sh.setAdvertisementId("BEE83220-9385-4B36-81E1-BF4305834093");
+
+        //change default settings
+        sh.shSetLocationEnabled(true);
+        sh.shGetLocationEnabled(function(result){alert("location enabled: " + result)}, failCallback);
+        sh.shSetNotificationEnabled(true);
+        sh.shGetNotificationEnabled(function(result){alert("notification enabled: " + result)}, failCallback);
+
+        //tag
+        // sh.tagCuid("myidentifier123456", function(result){alert("tag cuid result: " + result)}, failCallback);
+        // sh.tagUserLanguage("test language");
+        // sh.tagNumeric("numeric_key", 5, function(result){alert("tag numeric result: " + result)}, failCallback);
+        // sh.tagString("string_key", "liked", function(result){alert("tag string result: " + result)}, failCallback);
+        // sh.tagString("sh_phone", "abcdefg", function(result){alert("tag sh_phone result: " + result)}, failCallback);
+        // sh.tagString("sh_phone", "+123456", function(result){alert("tag sh_phone result: " + result)}, failCallback);
+        // sh.tagString("sh_email", "anurag@streethawk.com");
+        // sh.tagDatetime("date_key", "2016-6-18", function(result){alert("tag datetime result: " + result)}, failCallback);
+        // sh.incrementTag("numeric_key", function(result){alert("increment tag result: " + result)}, failCallback);
+        // sh.incrementTagWithValue("numeric_key", 100, function(result){alert("increment tag with value result: " + result)}, failCallback);
+        // sh.removeTag("numeric_key", function(result){alert("remove tag result: " + result)}, failCallback);
+
+        //view enter/exit
+        sh.notifyViewEnter("index.html");
+        sh.notifyViewExit("index.html");
+
+        //feedback
+        sh.shSendSimpleFeedback("feedback title", "hello, this is feedback message");
+
+        //install id
+        sh.getInstallId(function(result){alert("install id: " + result)}, failCallback);
+
+        //install register successfully
+        sh.registerInstallEventCallback(function(result){alert("register install: " + result)}, failCallback);
+
+        //sdk version
+        sh.getSHLibraryVersion(function(result){alert("sdk version: " + result)}, failCallback);
+
+        //streethawk format time
+        sh.getCurrentFormattedDateTime(function(result){alert("current time: " + result)}, failCallback);
+        //sh.getFormattedDateTime(60*60*1000, function(result){alert("formatted time: " + result)}, failCallback);
+
+        //alert setting
+        sh.shSetAlertSetting(60, function(){}, failCallback);
+        sh.shGetAlertSettings(function(result){alert("alert settings: " + result)}, failCallback);
+
+        //open url
+        sh.shDeeplinking(function(result){alert("open url: " + result)}, failCallback);
+
+        //launch page
+        sh.shRegisterViewCallback(function(result){alert("launch page by callback: " + result)}, failCallback);
+
+        //raw json
+
+        sh.shRawJsonCallback(rawjsonSuccess, failCallback);
+    
+        //custom confirm dialog
+
+        sh.pushDataCallback(pushDataSuccess, failCallback);
+    
+        //handle push result
+   
+        sh.pushResultCallback(pushResultSuccess, failCallback);
+    
+        //none StreetHawk payload
+        sh.registerNonSHPushPayloadObserver(function(result){alert("none StreetHawk payload callback: " + JSON.stringify(result))}, failCallback);
+    
+        //set interactive button pairs
+        // sh.addInteractivePushButtonPairWithIcons("button1", "icon1", "button2", "icon2", "pair1");
+        // sh.addInteractivePushButtonPairWithIcons("Invite", "", "Test", "", "InviteTest");
+        // sh.addInteractivePushButtonPair("agree", "disagree", "Agree_Disagree");
+        // sh.setInteractivePushBtnPair();
+
+        //fetch feed and send feed ack/result
+
+        sh.registerFeedItemCallback(feedItemSuccess, failCallback);
+        //sh.shGetFeedDataFromServer(0);
+
+
+        sh.notifyNewFeedCallback(notifyNewFeedSuccess, failCallback);
+
+        //pointzi
+        //sh.originateShareWithCampaign("child_campaign", "dialog", "medium", "content", "term", "shsamplepg://launchvc?path=value", "http://www.streethawk.com", function(result){alert("pointzi share url: " + result)}, failCallback);
+        //sh.originateShareWithSourceSelection("child_campaign", "shsamplepg://launchvc?path=value", "http://www.streethawk.com");
+
+        //geofence enter/exit callback
+        sh.setNotifyGeofenceEventCallback(function(result){alert("geofence enter/exit callback: " + JSON.stringify(result))}, failCallback);
+
+        //beacon enter/exit callback
+        sh.setNotifyBeaconDetectCallback(function(result){alert("beacon enter/exit callback: " + JSON.stringify(result))}, failCallback);
+
+        //location set report work home only
+        //sh.reportWorkHomeLocationOnly(true);
+            
+        //location set location update frequency
+        //sh.updateLocationMonitoringParams(1, 2, 3, 4);
+        //ios not use
+        //sh.setUseCustomDialog(false);
+        sh.forcePushToNotificationBar(true);
+        //sh.getIcon("icon_name");
+        //sh.startBeaconMonitoring();
+        //sh.stopBeaconMonitoring();
+        //sh.shEnterBeacon();
+        //sh.shExitBeacon();
+        //sh.setLargeIconResID("large icon");
+        //sh.setSmallIconResID("small icon");
   });
   $$(document).on('click', '.panel .search-link', function searchLink() {
     // Only change route if not already on the index

@@ -29,17 +29,31 @@
       "cordova-plugin-statusbar": {},
       "cordova-plugin-media": {},
       "cordova-plugin-splashscreen": {},
+      "streethawkanalytics": {
+        "APP_KEY": "phonegapeskd",
+        "URL_SCHEME": "null"
+      },
       "com.streethawk.core": {
         "APP_KEY": "phonegapeskd",
         "URL_SCHEME": "null"
-      }
+      },
+      "com.streethawk.push": {},
+      "com.streethawk.locations": {},
+      "com.streethawk.growth": {},
+      "com.streethawk.feed": {},
+      "me.tonny.cordova.plugins.multidex": {}
     }
   },
   "dependencies": {
-    "com.streethawk.core": "~1.10.0",
+    "com.darktalker.cordova.screenshot": "^0.1.6",
+    "com.streethawk.feed": "~1.10.0",
+    "com.streethawk.growth": "~1.10.0",
+    "com.streethawk.locations": "~1.10.0",
+    "com.streethawk.push": "~1.10.0",
     "cordova-android": "^7.1.0",
     "cordova-ios": "~4.1.1",
-    "cordova-plugin-cocoapod-support": "^1.5.0",
+    "cordova-multidex": "git+https://github.com/jwall149/cordova-multidex.git",
+    "cordova-plugin-cocoapod-support": "^1.6.0",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-console": "^1.1.0",
     "cordova-plugin-file": "^6.0.1",
@@ -47,6 +61,11 @@
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "cordova-plugin-whitelist": "^1.3.3",
-    "streethawkanalytics": "^1.10.1"
+    "me.tonny.cordova.plugins.multidex": "https://github.com/jwall149/cordova-multidex",
+    "streethawkanalytics": "^1.10.1",
+    "streethawkfeeds": "^1.10.1",
+    "streethawkgrowth": "^1.10.2",
+    "streethawklocations": "^1.10.1",
+    "streethawkpush": "^1.10.1"
   }
 }
